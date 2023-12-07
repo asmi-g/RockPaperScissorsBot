@@ -1,0 +1,44 @@
+1. void startup(); //sets motor encoders
+
+2. void startRound(); //clears screen, prepares input from sound sensor
+
+3. main();
+
+3. int robotPlay(); //counts down aloud, chooses one of three moves
+
+4. void handPosition(int robotChoice); //moves hands to according position from value returned from robotPlay function
+
+5. int readPlayerMove(); //reads player move from color sensor
+
+6. int decideChamp(int robotChoice, int playerChoice); //takes input from player choice and robot choice to decide winner
+
+7. void winnerResponse(int winner, int &robotWins, int &playerWins); //takes input from decideChamp, robot choice and decide winner, to play a sound file
+
+8. void updateScoreBoard(int robotWins, int playerWins); //displays number of robot wins and player wins
+
+9. void terminate(int robotWins, int playerWins); //takes input from touch sensor for sportsmanship, as well as robotwins and playerwins to shutdown program
+
+10. void resetHand(); //resets encoders
+
+Testing: 
+1. robotPlay(); The function was first tested to ensure the robot can choose a random number and play sound files. The criter for this function to work adequately was when it played audio files corresponding with a countdown, and then returned a number as its choice in rock-paper-scissors. For testing purposes, this was when a number was displayed to the EV3 screen.
+
+2. handPosition(int robotChoice); This function was tested next. It was tested by calling the function in main, with all three possible hand gestures to ensure each of them work. After testing it individually, it was tested along with the robotPlay function to ensure the return value from robotPlay can be read into handPosition. The criteria for this function to work was when it displayed the correct hand position through the robot hand.
+
+3. readPlayerMove(); Since this function was used to simply read values from the mounted color sensor and assign it an according integer value (to go along with the choice it represented) this function was tested individually to ensure it returned the appropriate number to the display. After being tested individually, it was integrated into main by being passed as a paramter into another function, which was decideChamp.
+
+4. decideChamp(int robotChoice, int playerChoice); This function relies on two other functions as parameters. As such, it was tested together. This was done by calling the two functions into decideChamp, and having decideChamp return an integer value to the screen in accordance with the winner. The criteria for this function to work included returning the correct integer according to the result of the game.
+
+5. winnerResponse(int winner, int &robotWins, int &playerWins); This function relies on the decideChamp function to read the result of the game, play an according sound file, and record the result of the game into variables to keep track of the wins/losses throughout all of the rounds played at a time (which will eventually be used for the scoreboard). As such, it was tested together next with decideChamp. This was done by assigning the decideChamp function to an integer variable in main, and passing that variable through winnerResponse. The criteria for this function to work was when it played sound files according to the result of the game, and displayed the overall score values to the screen. 
+
+6. updateScoreboard(int robotWins, int playerWins); This function displayed the score to the screen, updating after every round through passing by reference. The criteria for this to work was when it printed continuously updated values to the screen after every round. It was tested with the decideChamp function to ensure it reads values correctly.
+
+7. terminate(int robotWins, int playerWins); This function was also tested with the decideChamp function, to ensure that it interpreted the overall game results correctly, read in touch sensor values and displayed according text to the screen. The criteria for this to work was when an appropriate sound effect was played to congratulate the winner for playing, the hand was opened while the robot waited for the touch sensor to be pressed, and appropriate text was displayed to the screen. Finally, since it was a terminate function, it also needed to exit out of the program.
+
+8. resetHand(); This function resets the motor encoders, so it was tested individually. The criteria for it to work was when the robot opened and closed its hand.
+
+9. startup(); This function intializes the sensors and sets the hand to its starting position. The criteria for this to work was when it mimicked a closed fist through the robot hand. This function was tested individually.
+
+10. startRound(); This function clears the screen, and waits for input from the sound sensor. It was tested individually, and the criteria for it to work was when it returned a string to the screen, to indicate that the sound sensor worked.
+
+11. main(); After ensuring all of the individual functions worked as intended, the main program was put together. First, the functions which controlled one round of rock-paper-scissors, were added and tested together, which included startRound, handPosition, decideChamp, winnerResponse, and resetHand. Then the part of the program which controlled the robot looping the round until the user indicated they did not want to play anymore, were tested. These included updateScoreboard, as well as a do-while loop in which all of the functions used to control one round, were put into. Additionally, a while loop was added waiting for the user to indicate whether they wanted to play again or not, and depending on their choice, the program either looped again, or called the terminate function. Finally, the terminate function was added which ended the program.
